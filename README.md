@@ -8,12 +8,12 @@ This is a 1-gram Markov Chain sentence generator that uses Hamlet's seven solilo
 
 Usage
 -----
-The generator itself is written in pure Python (3) and is less than 100 lines:
-`python3 sharkov.py`
+The generator itself is written in pure Python (2/3) and is less than 100 lines:
+`python sharkov.py`
 
 There's also a web wrapper for it. It uses Flask.
 
     pip install -r requirements.txt
-    python3 server.py
+    python server.py
 
 [See a live demo.](http://patrickwhite.io/shakeskov)
