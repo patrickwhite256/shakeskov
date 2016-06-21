@@ -48,17 +48,20 @@ def format_token(token):
     return token
 
 
-def generate_sentence(model):
-    sentence = ''
-    token = random.choice(model[BOS])
-    while token not in SENTENCE_ENDERS:
-        if token not in PUNCTUATION:
-            sentence += ' '
-        sentence += format_token(token)
-        token = random.choice(model[token])
-    sentence += token
-    sentence = sentence.strip()
-    sentence = sentence[0].upper() + sentence[1:]
+def generate_sentence(model, min_length=0):
+    while True:
+        sentence = ''
+        token = random.choice(model[BOS])
+        while token not in SENTENCE_ENDERS:
+            if token not in PUNCTUATION:
+                sentence += ' '
+            sentence += format_token(token)
+            token = random.choice(model[token])
+        sentence += token
+        sentence = sentence.strip()
+        sentence = sentence[0].upper() + sentence[1:]
+        if len(sentence) >= min_length:
+            break
     return sentence
 
 
@@ -67,10 +70,7 @@ def main():
         corpus = infile.read()
     tokens = generate_tokens(corpus)
     model = build_model(tokens)
-    while True:
-        sentence = generate_sentence(model)
-        if len(sentence) > 20:
-            break
+    sentence = generate_sentence(model)
     print(sentence)
 
 
